@@ -2,7 +2,7 @@ version: 2
 
 sources:
   - name: raw
-    database: aegroupfive     # your Snowflake DB name
+    database: drive-marketing     # your Snowflake DB name
     schema: raw               # the schema name in your DB
     tables:
       - name: campaigns
