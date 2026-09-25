@@ -1,62 +1,137 @@
 version: 2
 
 models:
-  - name: trs_compaigns
+
+  - name: stg_campaigns
+    description: Cleaned campaign metadata used as the foundation for campaign-level analytics.
+
     columns:
       - name: campaign_id
-        description: primary key
+        description: Unique identifier for each marketing campaign.
         tests:
           - not_null
           - unique
-          - relationships:
-              field: <campaign_id>
-              to: ref('trs_campaign_performance')
-          - relationships:
-              field: <campaign_id>
-              to: ref('trs_email_campaigns')
+
+      - name: campaign_name
+        description: Name of the marketing campaign.
+        tests:
+          - not_null
+
+      - name: channel_name
+        description: Marketing channel associated with the campaign.
+        tests:
+          - not_null
+
+      - name: budget
+        description: Budget allocated to the campaign.
+
+      - name: status
+        description: Current status of the campaign.
 
 
-  - name: campaign_performance
+  - name: stg_campaign_performance
+    description: Cleaned campaign performance records at the campaign and reporting-date level.
+
     columns:
       - name: performance_id
-        description: primary key
+        description: Unique identifier for the performance record.
         tests:
           - not_null
           - unique
 
-  - name: trs_channel
+      - name: campaign_id
+        description: Campaign associated with the performance record.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_campaigns')
+              field: campaign_id
+
+      - name: performance_date
+        description: Date associated with the reported campaign performance.
+
+      - name: spend
+        description: Marketing spend recorded for the campaign.
+
+      - name: revenue
+        description: Revenue attributed to the campaign.
+
+
+  - name: stg_channels
+    description: Cleaned reference data describing marketing channels.
+
     columns:
       - name: channel_id
-        description: primary key
+        description: Unique identifier for a marketing channel.
         tests:
           - not_null
           - unique
-          - relationships:
-              field: <channel_id>
-              to: ref('trs_campaigns')
 
-  - name: trs_email_campaigns
+      - name: channel_name
+        description: Name of the marketing channel.
+        tests:
+          - not_null
+          - unique
+
+
+  - name: stg_email_campaigns
+    description: Cleaned email campaign performance and engagement data.
+
     columns:
       - name: email_campaign_id
-        description: primary key
-        tests:
-          - not_null
-          - unique
-          - relationships:
-              field: <list_id>
-              to: ref('trs_email_lists')
-  - name: trs_email_lists
-    columns:
-      - name: list_id
-        description: primary key
+        description: Unique identifier for an email campaign.
         tests:
           - not_null
           - unique
 
-  - name: trs_subscribers
+      - name: campaign_id
+        description: Marketing campaign associated with the email campaign.
+        tests:
+          - relationships:
+              to: ref('stg_campaigns')
+              field: campaign_id
+
+      - name: list_id
+        description: Email list targeted by the campaign.
+        tests:
+          - not_null
+          - relationships:
+              to: ref('stg_email_lists')
+              field: list_id
+
+
+  - name: stg_email_lists
+    description: Cleaned metadata describing email distribution lists.
+
     columns:
-      - name: subscriber_id
-        description: primary key
+      - name: list_id
+        description: Unique identifier for an email list.
         tests:
           - not_null
           - unique
+
+      - name: list_name
+        description: Name of the email distribution list.
+
+
+  - name: stg_subscribers
+    description: Cleaned subscriber data used for audience and subscription analysis.
+
+    columns:
+      - name: subscriber_id
+        description: Unique identifier for a subscriber.
+        tests:
+          - not_null
+          - unique
+
+      - name: list_id
+        description: Email list associated with the subscriber.
+        tests:
+          - relationships:
+              to: ref('stg_email_lists')
+              field: list_id
+
+      - name: email
+        description: Standardized subscriber email address.
+        tests:
+          - not_null

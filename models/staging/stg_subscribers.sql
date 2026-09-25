@@ -1,12 +1,12 @@
 select
   subscriber_id,
   list_id,
-   trim(email) as email,
+  lower(trim(email)) as email,
   trim(first_name) as first_name,
   trim(last_name) as last_name,
   case
-	  when trim(gender)= 'M' then 'Male'
-	  when trim(gender) = 'F' then 'Female' 
+	  when upper(trim(gender))= 'M' then 'Male'
+	  when upper(trim(gender)) = 'F' then 'Female' 
 	  else 'Other' 
   end as gender,
   trim(status) as status,
