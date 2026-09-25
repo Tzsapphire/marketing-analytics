@@ -1,0 +1,9 @@
+select
+  list_id,
+  trim(list_name) as list_name,
+  trim(list_type) as list_type,
+  trim(description) as description,
+  created_date,
+  coalesce(subscriber_count, 0) as subscriber_count
+FROM {{ source('raw', 'email_lists') }}
+WHERE LIST_ID IS NOT NULL
