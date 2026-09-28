@@ -28,7 +28,7 @@ email_campaigns_enriched as (
 
         c.campaign_name,
         c.channel_id,
-        c.channel_name,
+        c.channel,
         c.campaign_type,
 
         l.list_name,

@@ -19,7 +19,7 @@ campaigns_enriched as (
         c.campaign_name,
 
         ch.channel_id,
-        c.channel_name,
+        c.channel,
         ch.channel_type,
 
         c.campaign_type,
@@ -34,7 +34,7 @@ campaigns_enriched as (
     from campaigns c
 
     left join channels ch
-        on c.channel_name = ch.channel_name
+        on c.channel = ch.channel_name
 
 )
 
