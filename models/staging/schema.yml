@@ -17,7 +17,7 @@ models:
         tests:
           - not_null
 
-      - name: channel_name
+      - name: channel
         description: Marketing channel associated with the campaign.
         tests:
           - not_null
@@ -44,8 +44,9 @@ models:
         tests:
           - not_null
           - relationships:
-              to: ref('stg_campaigns')
-              field: campaign_id
+              arguments:
+                  to: ref('stg_campaigns')
+                  field: campaign_id
 
       - name: performance_date
         description: Date associated with the reported campaign performance.
@@ -88,16 +89,18 @@ models:
         description: Marketing campaign associated with the email campaign.
         tests:
           - relationships:
-              to: ref('stg_campaigns')
-              field: campaign_id
+              arguments:
+                  to: ref('stg_campaigns')
+                  field: campaign_id
 
       - name: list_id
         description: Email list targeted by the campaign.
         tests:
           - not_null
           - relationships:
-              to: ref('stg_email_lists')
-              field: list_id
+              arguments:
+                  to: ref('stg_email_lists')
+                  field: list_id
 
 
   - name: stg_email_lists
@@ -128,8 +131,9 @@ models:
         description: Email list associated with the subscriber.
         tests:
           - relationships:
-              to: ref('stg_email_lists')
-              field: list_id
+              arguments: 
+                to: ref('stg_email_lists')
+                field: list_id
 
       - name: email
         description: Standardized subscriber email address.
