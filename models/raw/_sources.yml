@@ -2,8 +2,8 @@ version: 2
 
 sources:
   - name: raw
-    database: drive-marketing     # your Snowflake DB name
-    schema: raw               # the schema name in your DB
+    database: marketing_elt     # your Snowflake DB name
+    schema: marketing_dbt               # the schema name in your DB
     tables:
       - name: campaigns
         description: "Raw campaign details"
