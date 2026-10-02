@@ -41,6 +41,11 @@ models:
     marts:
       +materialized: table
       +schema: marts
+      # +grants:
+      #   select: ['daniel']
+      # +post-hook: #hook a sql statement after 
+      #   - GRANT USAGE ON DATABASE DBT TO ROLE TESTER;
+      #   - GRANT USAGE ON SCHEMA DBT.SCHEMA TO ROLE TESTER;
 
 seeds:
   kart_marketing:
