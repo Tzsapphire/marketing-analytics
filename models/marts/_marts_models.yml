@@ -1,0 +1,139 @@
+version: 2
+
+models:
+
+  - name: dim_campaigns
+    description: >
+      Campaign dimension containing descriptive attributes used
+      to analyse marketing performance.
+
+    columns:
+      - name: campaign_id
+        description: Unique identifier for a campaign.
+        tests:
+          - not_null
+          - unique
+
+      - name: channel_id
+        description: Marketing channel associated with the campaign.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_channels')
+                field: channel_id
+
+
+  - name: dim_channels
+    description: Marketing channel reference dimension.
+
+    columns:
+      - name: channel_id
+        description: Unique identifier for a marketing channel.
+        tests:
+          - not_null
+          - unique
+
+      - name: channel_name
+        tests:
+          - not_null
+          - unique
+
+
+  - name: fct_campaign_performance
+    description: >
+      Daily campaign performance metrics including spend,
+      revenue, engagement, conversion and efficiency metrics.
+
+    columns:
+      - name: performance_id
+        description: Unique identifier for a campaign performance record.
+        tests:
+          - not_null
+          - unique
+
+      - name: campaign_id
+        description: Campaign associated with the performance record.
+        tests:
+          - not_null
+          - relationships:
+              arguments:
+                  to: ref('dim_campaigns')
+                  field: campaign_id
+
+      - name: performance_date
+        description: Date on which campaign performance was measured.
+        tests:
+          - not_null
+
+
+  - name: dim_email_lists
+    description: Email audience list dimension.
+
+    columns:
+      - name: list_id
+        tests:
+          - not_null
+          - unique
+
+
+  - name: fct_email_campaign_performance
+    description: >
+      Email campaign performance fact table containing delivery,
+      engagement, conversion and revenue metrics.
+
+    columns:
+      - name: email_campaign_id
+        tests:
+          - not_null
+          - unique
+
+      - name: campaign_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_campaigns')
+                field: campaign_id
+
+      - name: list_id
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_email_lists')
+                field: list_id
+
+# --
+  - name: dim_subscribers
+    description: Subscriber dimension used for audience and acquisition analysis.
+
+    columns:
+      - name: subscriber_id
+        description: Unique identifier for a subscriber.
+        tests:
+          - not_null
+          - unique
+
+      - name: list_id
+        description: Email list associated with the subscriber.
+        tests:
+          - relationships:
+              arguments:
+                to: ref('dim_email_lists')
+                field: list_id
+
+      - name: subscription_source
+        description: Channel or source through which the subscriber joined.
+
+  - name: dim_date
+    description: Calendar dimension used for consistent time-based analysis across marketing facts.
+
+    columns:
+      - name: date_day
+        description: Unique calendar date.
+        tests:
+          - not_null
+          - unique
+    config:
+          materialized: table
+          tags:
+            - static
+            - never_refresh
