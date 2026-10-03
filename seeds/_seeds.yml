@@ -1,0 +1,22 @@
+# seeds:
+#   - name: [<seed-name>]
+#     config:
+#       quote_columns: true | false
+#       column_types: {column_name: datatype}
+#       delimiter: <string>
+
+# seeds:
+#   - name: [<seed-name>]
+#     config:
+#       enabled: true | false
+#       tags: <string> | [<string>]
+#       pre_hook: <sql-statement> | [<sql-statement>]
+#       post_hook: <sql-statement> | [<sql-statement>]
+#       database: <string>
+#       schema: <string>
+#       alias: <string>
+#       persist_docs: <dict>
+#       full_refresh: <boolean>
+#       meta: {<dictionary>}
+#       grants: {<dictionary>}
+#       event_time: my_time_field

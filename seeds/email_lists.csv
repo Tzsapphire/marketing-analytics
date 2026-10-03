@@ -1,9 +1,0 @@
-list_id,list_name,list_type,description,created_date,subscriber_count
-1,Main Newsletter,Newsletter,General marketing newsletter,2024-01-15,5200
-2,VIP Customers,VIP,High-value customers and loyalty audience,2024-02-10,1150
-3,New Leads,Lead Nurture,Recently acquired leads,2024-03-01,3400
-4,Inactive Customers,Winback,Customers with no recent activity,2024-03-20,2100
-5,Product Education,Education,Users interested in product tips,2024-04-15,2900
-6,Deal Seekers,Promotions,Price-sensitive promotional audience,2024-05-01,4100
-7,B2B Prospects,B2B,Business prospects and decision makers,2024-05-15,1700
-8,Event Subscribers,Events,People who opted into event updates,2024-06-01,1300
