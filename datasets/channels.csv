@@ -1,0 +1,8 @@
+channel_id,channel_name,channel_type,cost_per_channel
+1,Email,Owned,1800.0
+2,Social Media,Paid,5200.0
+3,PPC,Paid,8500.0
+4,Display,Paid,4200.0
+5,Content Marketing,Owned,3000.0
+6,Influencer,Paid,6800.0
+7,Direct Mail,Offline,5600.0
